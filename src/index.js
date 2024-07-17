@@ -35,6 +35,7 @@ import { h, cloneElement, render, hydrate } from 'preact';
  *   shadow: true,
  *   mode: 'closed'
  * });
+ * @returns {HtmlElement} a newly created class extending HtmlElement that wraps the Preact component.
  * ```
  */
 export default function register(Component, tagName, propNames, options) {
@@ -93,10 +94,12 @@ export default function register(Component, tagName, propNames, options) {
 		});
 	});
 
-	return customElements.define(
+	customElements.define(
 		tagName || Component.tagName || Component.displayName || Component.name,
 		PreactElement
 	);
+
+	return PreactElement;
 }
 
 function ContextProvider(props) {
